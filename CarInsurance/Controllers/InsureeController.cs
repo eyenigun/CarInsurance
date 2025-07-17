@@ -44,6 +44,8 @@ namespace CarInsurance.Controllers
         // POST: Insuree/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
+        /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,FirstName,LastName,EmailAddress,DateOfBirth,CarYear,CarMake,CarModel,DUI,SpeedingTickets,CoverageType,Quote")] Insuree insuree)
@@ -56,7 +58,69 @@ namespace CarInsurance.Controllers
             }
 
             return View(insuree);
+        }   */
+
+        public ActionResult Admin()
+        {
+            return View(db.Insurees.ToList());
         }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create([Bind(Include = "Id,FirstName,LastName,EmailAddress,DateOfBirth,CarYear,CarMake,CarModel,DUI,SpeedingTickets,CoverageType")] Insuree insuree)
+        {
+            if (ModelState.IsValid)
+            {
+                // Start with base quote
+                decimal quote = 50m;
+
+                int age = DateTime.Now.Year - insuree.DateOfBirth.Year;
+                if (insuree.DateOfBirth > DateTime.Now.AddYears(-age)) age--;
+
+                // Age-based adjustments
+                if (age <= 18)
+                    quote += 100;
+                else if (age >= 19 && age <= 25)
+                    quote += 50;
+                else
+                    quote += 25;
+
+                // Car year
+                if (insuree.CarYear < 2000)
+                    quote += 25;
+                if (insuree.CarYear > 2015)
+                    quote += 25;
+
+                // Car make/model
+                if (insuree.CarMake.ToLower() == "porsche")
+                {
+                    quote += 25;
+                    if (insuree.CarModel.ToLower() == "911 carrera")
+                        quote += 25;
+                }
+
+                // Speeding tickets
+                quote += insuree.SpeedingTickets * 10;
+
+                // DUI
+                if (insuree.DUI)
+                    quote *= 1.25m;
+
+                // Full coverage
+                if (insuree.CoverageType)
+                    quote *= 1.5m;
+
+                insuree.Quote = Math.Round(quote, 2);
+
+                db.Insurees.Add(insuree);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            return View(insuree);
+        }
+
 
         // GET: Insuree/Edit/5
         public ActionResult Edit(int? id)
@@ -76,6 +140,7 @@ namespace CarInsurance.Controllers
         // POST: Insuree/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,EmailAddress,DateOfBirth,CarYear,CarMake,CarModel,DUI,SpeedingTickets,CoverageType,Quote")] Insuree insuree)
@@ -88,6 +153,8 @@ namespace CarInsurance.Controllers
             }
             return View(insuree);
         }
+
+
 
         // GET: Insuree/Delete/5
         public ActionResult Delete(int? id)
