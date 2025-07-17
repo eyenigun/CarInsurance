@@ -144,10 +144,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Insurance Entities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Insurance Entities.Designer.cs">
+    <Compile Include="Models\InsuranceEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>Insurance Entities.edmx</DependentUpon>
+      <DependentUpon>InsuranceEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Insuree.cs">
       <DependentUpon>Insurance Entities.tt</DependentUpon>
@@ -180,12 +180,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\Insurance Entities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Insurance Entities.edmx</DependentUpon>
+      <DependentUpon>InsuranceEntities.edmx</DependentUpon>
       <LastGenOutput>Insurance Entities.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Insurance Entities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Insurance Entities.edmx</DependentUpon>
+      <DependentUpon>InsuranceEntities.edmx</DependentUpon>
       <LastGenOutput>Insurance Entities.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -194,12 +194,12 @@
     <Content Include="Scripts\bootstrap.esm.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\Insurance Entities.edmx">
+    <EntityDeploy Include="Models\InsuranceEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Insurance Entities.Designer.cs</LastGenOutput>
+      <LastGenOutput>InsuranceEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\Insurance Entities.edmx.diagram">
-      <DependentUpon>Insurance Entities.edmx</DependentUpon>
+    <Content Include="Models\InsuranceEntities.edmx.diagram">
+      <DependentUpon>InsuranceEntities.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
